@@ -1,0 +1,1661 @@
+﻿
+@{
+    ViewBag.Title = "JD";
+}
+
+<script type="text/javascript">
+     var timer;
+     var i = 0;
+     var i2 = 0;
+     var dt = new Date();
+     var hour, minute, second;
+     $(function () {
+         $('.slider-item').eq(0).show().siblings().hide();
+         $('.lcr-page').eq(0).show().siblings().hide();
+         $('.lcr-switch-item').eq(0).css('background', '#f90013').siblings().css('background', '#c8c8c8');
+         getTime();
+
+         $('.nav-but').eq(i).css('background', 'red').siblings().css('background', 'white');
+         slider();
+         $('.nav-but').mouseenter(function () {
+             clearInterval(timer);
+             timer = null;
+             $(this).css('background-color', 'red').siblings().css('background', 'white');
+             $('.slider-item').eq($(this).index()).fadeIn().siblings().fadeOut();
+             i = $(this).index();
+         });
+         $('.slider-item').mouseout(function () {
+             //clearInterval(timer);
+             if (timer == null)
+                 slider();
+         });
+         $('.cate-menu-item').hover(function () {
+             $(this).addClass('cate-menu-item-on');
+             $('.cate-menu-pop').show();
+         },
+             function () {
+                 $(this).removeClass('cate-menu-item-on')
+                 $('.cate-menu-pop').hide();
+             }
+         );
+         $('.menu-item-link').hover(function () {
+             $(this).css('color', '#f10215');
+         }, function () {
+             $(this).css('color', '#fff');
+         }
+         );
+
+
+
+         $('.lcr-center .lcr-box-body').hover(function () {
+             $('.lcr-page-but').show();
+         }, function () {
+             $('.lcr-page-but').hide();
+         }
+         );
+
+
+
+         $('.lcr-page-prebut').click(function () {
+             i2--;
+             if (i2 == -1)
+                 i2 = 2;
+             $('.lcr-page').eq(i2).fadeIn().siblings().fadeOut();
+             $('.lcr-switch-item').eq(i2).css('background', '#f90013').siblings().css('background', '#c8c8c8');
+         });
+
+
+         $('.lcr-page-nexbut').click(function () {
+             i2++;
+             if (i2 == 3)
+                 i2 = 0;
+             $('.lcr-page').eq(i2).fadeIn().siblings().fadeOut();
+             $('.lcr-switch-item').eq(i2).css('background', '#f90013').siblings().css('background', '#c8c8c8');
+         });
+
+
+         $('.lcr-switch-item').hover(function () {
+             $(this).css('background', '#f90013').siblings().css('background', '#c8c8c8');
+             $('.lcr-page').eq($(this).index()).fadeIn().siblings().fadeOut();
+         }, function () {
+         }
+         );
+
+
+         $('.close-but').click(function () {
+             $(this).parent().parent().hide();
+         });
+
+
+         $('.text').on('click input', function () {
+             setTimeout(function () {
+                 if ($('.text').val() != "") {
+                     $.ajax({
+                         url: '/Home/Search',
+                         data: {
+                             word: $('.text').val()
+                         },
+                         type: 'get',
+                         success: function (data) {
+                             $('.search-helper').html("");
+                             if (data != 'false') {
+                                 $('.search-helper').show();
+                                 $('.search-helper').html(data);
+                             }
+                             else
+                                 $('.search-helper').hide();
+                         }
+                     });
+                 }
+             }, 500);
+         });
+
+         $('.text').focusout(function () {
+             setTimeout(function () {
+                 $('.search-helper').hide();
+             }, 300);
+             
+         });
+    });
+
+
+        function slider() {
+            timer = setInterval(function () {
+                if (i >= 8)
+                    i = 0;
+                $('.slider-item').eq(i).fadeIn().siblings().fadeOut();
+                $('.nav-but').eq(i).css('background', 'red').siblings().css('background', 'white');
+                i++;
+            }, 2000);
+    }
+
+        function getTime() {
+            hour = dt.getHours();
+            minute = dt.getMinutes();
+            second = dt.getSeconds();
+            setInterval(function () {
+                second = (second * 1) + 1;
+                if (second == 60) {
+                    second = 0;
+                    minute = (minute * 1) + 1;
+                    if (minute == 60)
+                    {
+                        minute = 0;
+                        hour = hour = (hour * 1) + 1;
+                        if (hour == 24)
+                            hour = 0;
+                    }
+                }
+                if ((hour + "").length == 1)
+                    hour = "0" + hour;
+                if ((minute + "").length == 1)
+                    minute = "0" + minute;
+                if ((second + "").length == 1)
+                    second = "0" + second;
+                $('.box-timer-hour .timer-txt').html(hour);
+                $('.box-timer-minute .timer-txt').html(minute);
+                $('.box-timer-second .timer-txt').html(second);
+
+            }, 1000);
+            
+        }
+</script>
+
+
+<style type="text/css">
+        @@font-face{
+            font-family:"iconfont";
+            src: url("/fonts/iconfont.woff");
+        }
+        @@font-face{
+            font-family:"fzzxh";
+            src:url("/fonts/fzzxh-webfont.woff");
+        }
+        * {
+            margin:0px;
+            padding:0px;
+        }
+        body{
+            background-color:#f6f6f6;
+            font-family:"Microsoft YaHei";
+        }
+        div{
+            display:block;
+        }
+        a {
+            text-decoration:none;
+            color:#666;
+        }
+        a:hover{
+            text-decoration:none;
+        }
+        li{
+            list-style-type:none;
+        }
+        #Ad{
+            background-color:#2b19a9;
+            position:relative;
+        }
+        .ad-bar-inner{
+            width:1200px;
+            position:relative;
+            margin:0 auto;
+        }
+        .ad-inner-link{
+            width:100%;
+            height:80px;
+            display:block;
+            background:url("/images/adbar.png") no-repeat 50% 0;
+            
+        }
+        .close-but{
+            width:20px;
+            line-height:20px;
+            text-align:center;
+            opacity:0.3;
+            color:#fff;
+            font-size:14px;
+            font-weight:bold;
+            position:absolute;
+            top:5px;
+            right:5px;
+            background-color:rgb(45,45,45);
+            cursor:pointer;
+        }
+        #Top {
+            height:31px;
+            width:100%;
+            background-color:#e3e4e5;
+        }
+        .topmid {
+            width:1200px;
+            margin:0 auto;
+        }
+        .dropdown {
+            height:31px;
+            width:100px;
+            float:left;
+            margin-left:200px;
+            font-size:12px;
+            color:#666;
+            line-height:31px;
+        }
+        .info {
+            height:31px;
+            float:right;
+        }
+        .info li {
+            float:left;
+            font-size:12px;
+            margin-left:15px;
+            list-style-type:none;
+            line-height:31px;
+        }
+        .info li a {
+             color:#666;
+             text-decoration:none;
+        }
+        #bannerarea{
+            height:140px;
+            width:100%;
+        }
+        .bannermid {
+            width:1200px;
+            height:140px;
+            margin:auto;
+            position:relative;
+        }
+        .logo{
+            height:170px;
+            width:190px;
+            display:block;
+            position:absolute;
+            top:-31px;
+            z-index:2;
+            box-shadow: 0 -12px 10px rgba(0,0,0,.2);
+            background: url("/images/logo.png") white;
+        }
+        .search {
+            position:relative;
+            height:60px;
+        }
+        .search-helper{
+            border:1px solid #ccc;
+            background-color:#fff;
+            box-shadow:1px 2px 1px rgba(0,0,0,0.2);
+            position:absolute;
+            z-index:5;
+            width:488px;
+            left:320px;
+            top:59px;
+            display:none;
+            list-style-type:none;
+            font-size:12px;
+            padding:5px;
+
+        }
+        .form{
+            height:35px;
+            width:550px;
+            position:absolute;
+            left:320px;
+            top:25px;
+        }
+        .form .text{
+            height:25px;
+            width:490px;
+            padding:4px;
+            border:1px solid #f10215;
+        }
+        .form .button{
+            width:50px;
+            height:35px;
+            border:none;
+            background-color:#f10215;
+            position:absolute;
+            top:0;
+        }
+        .iconfont{
+            font-family:iconfont;
+            font-style:normal;
+            -webkit-text-stroke-width: .2px;
+        }
+        .settle{
+            position:absolute;
+            right:99px;
+            top:25px;
+        }
+        .settle .settlepic{
+            height:33px;
+            width:188px;
+            background-color:#fff;
+            line-height:33px;
+            text-align:center;
+        }
+        .hotwords{
+            width:550px;
+            height:20px;
+            position:absolute;
+            top:65px;
+            left:320px;
+            line-height:20px;
+        }
+        .hotwords a{
+            float:left;
+            font-size:12px;
+            color:#999;
+            margin-left:10px;
+        }
+        .navitem{
+            height:40px;
+            width:790px;
+            position:absolute;
+            left:200px;
+            bottom:0;
+        }
+        .navitem ul{
+            float:left;
+        }
+        .navitem li{
+            float:left;
+            list-style-type:none;
+            margin-left:35px;
+        }
+        .navitem a{
+            font-weight:bolder;
+            line-height:40px;
+            font-size:16px;
+            color:#555;
+        }
+        .hotgoods{
+            height:40px;
+            width:190px;
+            position:absolute;
+            right:0;
+            bottom:10px;
+        }
+        .hotgoodspic{
+            display:block;
+            width:190px;
+            height:40px;
+            background: url("/images/hotgoods.png") center no-repeat;
+        }
+        #maincontent{
+            position:relative;
+            margin-bottom:9px;
+        }
+        .main-inner{
+            width:1200px;
+            height:480px;
+            margin:0 auto;
+            position:relative;
+            z-index:1;
+        }
+        .main-hot-ad {
+            width:100%;
+            height:480px;
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:0;
+        }
+    .main-hot-adlink {
+        display: block;
+        height: 480px;
+        background: url("/images/mainadleft.png") no-repeat -13px -2px ,url("/images/mainadright.png") no-repeat 1553px -2px;
+    }
+        .category{
+            width:190px;
+            height:100%;
+            float:left;
+            margin-right:10px;
+        }
+        .cate-menu{
+            position:relative;
+        }
+        .cate-menu-list{
+            list-style-type:none;
+            padding:15px 0;
+            background-color:#6e6568;
+            color:#fff;
+        }
+        .cate-menu-item{
+            padding-left:12px;
+            height:30px;
+            line-height:30px;
+        }
+        .cate-menu-item-on{
+            background-color:rgba(255,255,255,0.3);
+        }
+        .menu-item-link{
+            font-size:14px;
+            color:#fff;
+        }
+        .cate-menu-pop{
+            width:1008px;
+            min-height:480px;
+            position:absolute;
+            left:190px;
+            top:0;
+            border:1px solid #f7f7f7;
+            background-color:#f7f7f7;
+            box-shadow: 0 1px 30px rgba(0,0,0,.2);
+            z-index:3;
+            display:none;
+        }
+        .bigpicarea{
+            width:790px;
+            float:left;
+            height:100%;
+        }
+        .userinfo{
+            width:200px;
+            height:100%;
+            margin-left:10px;
+            float:right;
+            background-color:#fff;
+        }
+        #sale-ms{
+            height:305px;
+            margin-bottom:30px;
+        }
+        .sale-ms-inner{
+            width:1200px;
+            margin:0 auto;
+        }
+        .box-title{
+            height:55px;
+            line-height:55px;
+            padding:0 20px 0 30px;
+            color:#fff;
+            background:url("/images/seckill_hd.png") no-repeat 0 0;
+            background-size:cover;
+            position:relative;
+        }
+        .box-col1{
+            float:left;
+        }
+        .box-col2{
+            float:right;
+        }
+        .box-tit{
+            float:left;
+            font-family:fzzxh;
+            font-size:26px;
+            font-weight:400;
+            line-height:40px;
+            height:40px;padding-top:9px;
+        }
+        .box-tip{
+            float:left;
+            color:#fff;
+            margin-left:12px;
+            font-size:14px;
+            margin-top:19px;
+            line-height:24px;
+            position:relative;
+            padding-right:20px;
+        }
+        .box-arrow{
+            background-image:url("/images/icon1.png");
+            background-size:218px 188px;
+            background-repeat:no-repeat;
+            background-position:-154px -40px;
+            height:16px;
+            width:15px;
+            position:absolute;
+            top:4px;
+            right:0;
+        }
+        .box-pic1{
+            background-image:url("/images/icon1.png");
+            background-repeat:no-repeat;
+            background-position:-190px -48px;
+            background-size:218px 188px;
+            height:23px;
+            width:23px;
+            position:absolute;
+            top:-4px;
+            left:-4px;
+        }
+        .box-pic2{
+            margin-top:8px;
+            margin-right:8px;
+            background-image:url("/images/icon1.png");
+            background-position:0 -40px;
+            background-size:218px 188px;
+            background-repeat:no-repeat;
+            width:34px;
+            height:40px;
+            float:left;
+        }
+        .box-timer-tip{
+            float:left;
+            line-height:45px;
+            padding-top:10px;
+            font-size:14px;
+            color:#fff;
+        }
+        .box-timer{
+            float:left;
+            margin-left:6px;
+            margin-right:8px;
+        }
+        .box-timer-hour, .box-timer-minute, .box-timer-second{
+            float:left;
+            width:35px;
+            height:37px;
+            background-color:#440106;
+            color:#f90013;
+            font-size:24px;
+            font-family:Arial;
+            font-weight:700;
+            border-radius:3px;
+            text-align:center;
+            line-height:37px;
+            margin-top:10px;
+        }
+        .box-split{
+            float:left;
+            margin:22px 4px 0;
+            width:4px;
+            height:12px;
+            font-size:0;
+            line-height:0;
+        }
+        .box-top-dot, .box-bottom-dot{
+            height:4px;
+            width:4px;
+            display:block;
+            border-radius:100%;
+            background-color:#440106;
+        }
+        .box-top-dot{
+            margin-bottom:4px;
+        }
+        .sale-goods-inner{
+            height:225px;
+            padding:12px 0 13px;
+            background-color:#fff;
+        }
+        .sale-goods-list{
+            float:left;
+            width:1000px;
+            height:100%;
+            position:relative;
+            overflow:hidden;
+        }
+        .sale-special{
+            float:right;
+            margin:0 10px 0 0;
+        }
+        .slider-main{
+            position:relative;
+            margin-bottom:10px;
+            height:340px;
+        }
+        .slider-extend{
+            margin-left:-10px;
+            height:130px;
+        }
+        .slider-extend-left, .slider-extend-right{
+            float:left;
+            margin-left:10px;
+            width:390px;
+            height:130px;
+            overflow:hidden;
+        }
+        .extend-goods-pic{
+            display:block;
+            height:130px;
+            width:390px;
+        }
+        .slider-list{
+            position:absolute;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+        }
+        .slider-item{
+            position:absolute;
+            height:100%;
+            width:100%;
+            z-index:0;
+            overflow:hidden;
+        }
+        .slider-nav{
+            position:absolute;
+            padding:4px 8px;
+            background-color:hsla(0,0%,100%,.3);
+            left:50%;
+            bottom:20px;
+            border-radius:29px;
+            margin-left:-109px;
+            z-index:1;
+        }
+        .nav-but{
+            height:12px;
+            width:12px;
+            display:inline-block;
+            margin-right:10px;
+            border-radius:100%;
+            background-color:#fff;
+        }
+        .sale-list-inner {
+            width: 6000px;
+            height:100%;
+        }
+        .sale-list-item{
+            float:left;
+            width:171px;
+            height:225px;
+            padding:0 14px 0 15px;
+            border-right:1px solid #e7e7e7;
+        }
+        .sale-list-item-pic{
+            position:relative;
+            text-align:center;
+        }
+        .sale-list-item-shadow{
+            height:20px;
+            width:171px;
+            position:absolute;
+            top:130px;
+            left:0;
+            background-image:url("/images/icon1.png");
+            background-position:0 0;
+            background-size:218px 188px;background-repeat:no-repeat;
+        }
+        .sale-list-item-name{
+            color:#999;
+            display:block;
+            overflow:hidden;
+            font-size:12px;
+            text-align:left;
+            height:32px;
+            line-height:16px;
+            word-wrap:break-word;
+            word-break:break-all;
+        }
+        .sale-list-item-img{
+            width:130px;
+            height:130px;
+            margin:17px 0;
+        }
+        .sale-list-item-price-new{
+            font-size:18px;
+            font-weight:700;
+            margin-right:8px;
+            color:#f10214;
+        }
+        .sale-list-item-price-new i{
+            font-size:12px;
+            font-weight:300;
+            font-style:normal;
+            font-family:Arial;
+        }
+        .sale-list-item-price-old{
+            color:#999;
+            font-size:12px;
+            font-family:Arial;
+        }
+        #lcr{
+            height:444px;
+            margin-bottom:30px;
+        }
+        .lcr-inner{
+            width:1200px;
+            height:100%;
+            margin:0 auto;
+        }
+        .lcr-left, .lcr-center, .lcr-right{
+            width:390px;
+            height:444px;
+            float:left;
+            overflow:hidden;
+        }
+        .lcr-left, .lcr-center{
+            margin-right:15px;
+        }
+        .lcr-box-head{
+            height:55px;
+            line-height:55px;
+            color:#fff;
+            padding:0 20px 0 30px;
+            position:relative;
+        }
+        .lcr-left .lcr-box-head{
+            background-color:#4998a1;
+        }
+        .lcr-center .lcr-box-head{
+            background-color:#76488e;
+        }
+        .lcr-right .lcr-box-head{
+            background-color:#e77005;
+        }
+        .lcr-box-body {
+            height: 389px;
+            width: 390px;
+            position: relative;
+            background-color: #fff;
+        }
+        .lcr-left .lcr-box-body{
+            padding:10px; 
+        }
+        .lcr-tab {
+            height: 389px;
+            width: 390px;
+            position:relative;
+        }
+        .lcr-box-arrow{
+            position:absolute;
+            top:0;
+            left:0;
+            border-top:19px solid #f6f6f6;
+            border-right:19px solid transparent;
+        }
+        .lcr-left .lcr-box-dec {
+            height: 22px;
+            width: 22px;
+            background-image: url("/images/icon1.png");
+            background-position: -190px -96px;
+            background-size: 218px 188px;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: -4px;
+            top: -4px;
+        }
+        .lcr-center .lcr-box-dec{
+            height:22px;
+            width:22px;
+            background-image:url("/images/icon3.png");
+            position:absolute;
+            left:-4px;
+            top:-4px;
+        }
+        .lcr-right .lcr-box-dec {
+            height: 22px;
+            width: 22px;
+            background-image: url("/images/icon1.png");
+            background-position: -190px 0;
+            background-size: 218px 188px;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: -4px;
+            top: -4px;
+        }
+        .lcr-box-tit{
+            font-family:fzzxh;
+            font-size:26px;
+            font-weight:400;
+            float:left;
+            height:40px;
+            line-height:40px;
+            padding-top:9px;
+        }
+        .lcr-box-subtit{
+            position:relative;
+            float:right;
+            margin-top:19px;
+            padding-right:20px;
+            height:24px;
+            line-height:24px;
+            font-size:14px;
+            color:#fff;
+        }
+        .lcr-box-subtit-arrow{
+            background-image:url("/images/icon1.png");
+            background-position:-154px -40px;
+            background-size:218px 188px;
+            background-repeat:no-repeat;    
+            width:15px;
+            height:16px;
+            position:absolute;
+            top:4px;
+            right:0;
+        }
+        .lcr-list{
+            height:363px;
+            width:370px;
+            overflow:hidden;
+        }
+        .lcr-list-item{
+            float:left;
+            border-bottom:1px solid #e7e7e7;
+            border-right:1px solid #e7e7e7;
+        }
+        .lcr-list-item5, .lcr-list-item6 {
+            border-bottom: 0;
+        }
+        .lcr-list-item2, .lcr-list-item4, .lcr-list-item6{
+            border-right:0;
+            margin-right:-1px;
+        }
+        .lcr-list-link{
+            width:185px;
+            height:120px;
+            display:block;
+            position:relative;
+        }
+        .lcr-list-name{
+            font-size:14px;
+            color:#4998a1;
+            width:80px;
+            line-height:20px;
+            position:absolute;
+            top:15px;
+            left:20px;
+            z-index:1;
+            word-wrap:break-word;
+        }
+        .lcr-list-pic{
+            height:80px;
+            width:80px;
+            position:absolute;
+            bottom:5px;
+            right:10px;
+        }
+        .lcr-page{
+            position:absolute;
+            padding-top:8px;
+            height:380px;
+        }
+        .lcr-page-link{
+            display:block;
+            height:141px;
+            width:360px;
+            margin:0 15px 18px;
+            padding-top:18px;
+            overflow:hidden;
+            text-align:center;
+            white-space:nowrap;
+        }
+        .lcr-page-sep{
+            width:330px;
+            height:1px;
+            margin:auto;
+            background-color:#eee;
+        }
+        .lcr-page-dec{
+            font-size:14px;
+            line-height:16px;
+            color:#666;
+            text-indent:10px;
+            margin-bottom:15px;
+            text-align:left;
+        }
+        .lcr-page-but{
+            height:50px;
+            width:20px;
+            position:absolute;
+            top:160px;
+            line-height:50px;
+            color:#797173;
+            text-align:center;
+            background-color:#f3f2f3;
+            z-index:1;
+            display:none;
+            cursor:pointer;
+        }
+        .lcr-page-prebut{
+            left:0;
+        }
+        .lcr-page-nexbut{
+            right:0;
+        }
+        .lcr-page-switch{
+            width:100%;
+            line-height:10px;
+            text-align:center;
+            position:absolute;
+            z-index:1;
+            bottom:15px;
+        }
+        .lcr-switch-item{
+            display:inline-block;
+            width:8px;
+            height:8px;
+            margin:0 7px;
+            background-color:#c8c8c8;
+            border-radius:4px;
+        }
+        .lcr-top-head{
+            width:370px;
+            height:18px;
+            margin:0 auto;
+            font-size:0;
+            padding:6px 0 7px;
+            border-bottom:1px solid #e7e7e7;
+            white-space:nowrap;
+            overflow:hidden;
+            position:relative;
+        }
+        .lcr-top-link{
+            display:inline-block;
+            line-height:18px;
+            font-size:14px;
+            width:77px;
+            border-right:1px solid #d2d2d1;
+            text-align:center;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+        .lcr-top-firstlink{
+            margin-left:-10px;
+        }
+        .lcr-top-lastlink{
+            border-right:0px;
+        }
+        .lcr-top-link:hover{
+            color:#c81623;
+        }
+</style>
+
+<div id="Ad">
+    <div class="ad-bar-inner">
+        <a href="#" class="ad-inner-link"></a>
+        <span class="iconfont close-but"></span>
+    </div>
+</div>
+<div id="Top">
+    <div class="topmid">
+        <div class="dropdown">@ViewData["Location"]</div>
+        <ul class="info">
+            <li><a href="/Users/Login">登陆</a></li>
+            <li><a href="#">免费注册</a></li>
+            <li><a href="#">我的订单</a></li>
+            <li><a href="#">我的京东</a></li>
+            <li><a href="#">京东会员</a></li>
+            <li><a href="#">企业采购</a></li>
+            <li><a href="#">客户服务</a></li>
+            <li><a href="#">网址导航</a></li>
+            <li><a href="#">手机京东</a></li>
+        </ul>
+    </div>
+</div>
+<div id="bannerarea">
+    <div class="bannermid">
+        <div class="logo"></div>
+        <div class="search">
+            <ul class="search-helper"></ul>
+            <div class="form">
+                <input class="text" type="text" />
+                <button class="button">
+                    <span class="iconfont" style="color:#fff;font-size:18px;"></span>
+                </button>
+            </div>
+            <div class="settle">
+                <div class="settlepic">
+                    <span class="iconfont" style="color:#f10215;"></span>
+                    <a href="#" style="color:#f10215;font-size:12px;">我的购物车</a>
+                </div>
+            </div>
+            <div class="hotwords">
+                <a href="#">12期免息</a>
+                <a href="#">Apple盛典</a>
+                <a href="#">3件7折</a>
+                <a href="#">阿玛尼</a>
+                <a href="#">家电满赠</a>
+                <a href="#">羊毛衫</a>
+                <a href="#">小太阳</a>
+                <a href="#">满188减100</a>
+                <a href="#">雪地靴</a>
+            </div>
+        </div>
+        <div class="navitem">
+            <ul class="nav-guide-one">
+                <li class="nav-guide-item"><a href="#">秒杀</a></li>
+                <li class="nav-guide-item"><a href="#">优惠劵</a></li>
+                <li class="nav-guide-item"><a href="#">闪购</a></li>
+                <li class="nav-guide-item"><a href="#">拍卖</a></li>
+            </ul>
+            <ul class="nav-guide-two">
+                <li class="nav-guide-item"><a href="#">服装城</a></li>
+                <li class="nav-guide-item"><a href="#">京东超市</a></li>
+                <li class="nav-guide-item"><a href="#">生鲜</a></li>
+                <li class="nav-guide-item"><a href="#">全球购</a></li>
+            </ul>
+            <ul class="nav-guide-three">
+                <li class="nav-guide-item"><a href="#">京东金融</a></li>
+            </ul>
+        </div>
+        <div class="hotgoods">
+            <a href="#" class="hotgoodspic"></a>
+        </div>
+    </div>
+</div>
+<div id="maincontent">
+    <div class="main-inner">
+        <div class="category">
+            <div class="cate-menu">
+                <ul class="cate-menu-list">
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">家用电器</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">手机</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">运营商</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">数码</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">电脑</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">办公</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">家居</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">家具</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">家装</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">厨具</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">男装</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">女装</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">童装</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">内衣</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">美妆个护</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">宠物</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">女鞋</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">箱包</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">钟表</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">珠宝</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">男鞋</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">运动</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">户外</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">汽车</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">汽车用品</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">母婴</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">玩具乐器</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">食品</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">酒类</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">生鲜</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">特产</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">医药保健</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">计生情趣</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">图书</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">音像</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">电子书</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">机票</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">酒店</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">旅游</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">生活</a>
+                    </li>
+                    <li class="cate-menu-item">
+                        <a href="#" class="menu-item-link">理财</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">众筹</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">白条</a>
+                        <span class="menu-item-split">/</span>
+                        <a href="#" class="menu-item-link">保险</a>
+                    </li>
+                </ul>
+                <div class="cate-menu-pop">
+
+                </div>
+            </div>
+        </div>
+        <div class="bigpicarea">
+            <div class="slider">
+                <div class="slider-main">
+                    <ul class="slider-list">
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/001.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/002.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/003.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/004.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/005.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/006.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/007.jpg" />
+                            </a>
+                        </li>
+                        <li class="slider-item">
+                            <a href="#">
+                                <img src="/images/008.jpg" />
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="slider-nav">
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                        <span class="nav-but"></span>
+                    </div>
+                </div>
+                <div class="slider-extend">
+                    <div class="slider-extend-left">
+                        <a href="#" class="extend-goods-pic">
+                            <img src="/images/leftgoods.jpg" />
+                        </a>
+                    </div>
+                    <div class="slider-extend-right">
+                        <a href="#" class="extend-goods-pic">
+                            <img src="/images/rightgoods.jpg" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="userinfo">
+
+        </div>
+    </div>
+    <div class="main-hot-ad">
+        <a href="#" class="main-hot-adlink"></a>
+    </div>
+</div>
+<div id="sale-ms">
+    <div class="sale-ms-inner">
+        <div class="box-title">
+            <div class="box-col1">
+                <span class="box-pic1"></span>
+                <span class="box-pic2"></span>
+                <h3 class="box-tit">京东秒杀</h3>
+                <a href="#" class="box-tip">总有你想不到的低价<span class="box-arrow"></span></a>
+            </div>
+            <div class="box-col2">
+                <span class="box-timer-tip">当前场次</span>
+                <div class="box-timer">
+                    <div class="box-timer-inner">
+                        <div class="box-timer-hour">
+                            <span class="timer-txt"></span>
+                        </div>
+                        <div class="box-split">
+                            <span class="box-top-dot"></span>
+                            <span class="box-bottom-dot"></span>
+                        </div>
+                        <div class="box-timer-minute">
+                            <span class="timer-txt"></span>
+                        </div>
+                        <div class="box-split">
+                            <span class="box-top-dot"></span>
+                            <span class="box-bottom-dot"></span>
+                        </div>
+                        <div class="box-timer-second">
+                            <span class="timer-txt"></span>
+                        </div>
+                    </div>
+                </div>
+                <span class="box-timer-tip">后结束抢购</span>
+            </div>
+        </div>
+        <div class="sale-goods-inner">
+            <div class="sale-goods-list">
+                <ul class="sale-list-inner">
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k001.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k002.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k003.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k004.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k005.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k006.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k007.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k008.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k009.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                    <li class="sale-list-item">
+                        <div class="sale-list-item-pic">
+                            <a href="#" class="sale-list-linkpic">
+                                <img src="/images/k010.jpg" class="sale-list-item-img" />
+                                <p class="sale-list-item-name">【京东超市】澳大利亚进口纯牛奶 德亚（Weidendorf）全脂 250ml*24</p>
+                            </a>
+                            <span class="sale-list-item-shadow"></span>
+                        </div>
+                        <p class="sale-list-item-price">
+                            <span class="sale-list-item-price-new">
+                                <i>¥</i>
+                                <span>120</span>
+                            </span>
+                            <span class="sale-list-item-price-old">
+                                <i>¥</i>
+                                <del>130</del>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <a href="#" class="sale-special">
+                <img src="/images/special.jpg" />
+            </a>
+        </div>
+    </div>
+</div>
+<div id="lcr">
+    <div class="lcr-inner">
+        <div class="lcr-left">
+            <div class="lcr-box-head">
+                <span class="lcr-box-arrow"></span>
+                <span class="lcr-box-dec"></span>
+                <h3 class="lcr-box-tit">发现好货</h3>
+                <a href="#" class="lcr-box-subtit">
+                    发现品质生活
+                    <span class="lcr-box-subtit-arrow"></span>
+                </a>
+            </div>
+            <div class="lcr-box-body">
+                <ul class="lcr-list">
+                    <li class="lcr-list-item lcr-list-item1">
+                        <a href="#" class="lcr-list-link">
+                            <p class="lcr-list-name">索尼无线降噪耳机</p>
+                            <img src="/images/lcr001.png" class="lcr-list-pic" />
+                        </a>
+                    </li>
+                    <li class="lcr-list-item lcr-list-item2">
+                        <a href="#" class="lcr-list-link">
+                            <p class="lcr-list-name">索尼无线降噪耳机</p>
+                            <img src="/images/lcr001.png" class="lcr-list-pic" />
+                        </a>
+                    </li>
+                    <li class="lcr-list-item lcr-list-item3">
+                        <a href="#" class="lcr-list-link">
+                            <p class="lcr-list-name">索尼无线降噪耳机</p>
+                            <img src="/images/lcr001.png" class="lcr-list-pic" />
+                        </a>
+                    </li>
+                    <li class="lcr-list-item lcr-list-item4">
+                        <a href="#" class="lcr-list-link">
+                            <p class="lcr-list-name">索尼无线降噪耳机</p>
+                            <img src="/images/lcr001.png" class="lcr-list-pic" />
+                        </a>
+                    </li>
+                    <li class="lcr-list-item lcr-list-item5">
+                        <a href="#" class="lcr-list-link">
+                            <p class="lcr-list-name">索尼无线降噪耳机</p>
+                            <img src="/images/lcr001.png" class="lcr-list-pic" />
+                        </a>
+                    </li>
+                    <li class="lcr-list-item lcr-list-item6">
+                        <a href="#" class="lcr-list-link">
+                            <p class="lcr-list-name">索尼无线降噪耳机</p>
+                            <img src="/images/lcr001.png" class="lcr-list-pic" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="lcr-center">
+            <div class="lcr-box-head">
+                <span class="lcr-box-arrow"></span>
+                <span class="lcr-box-dec"></span>
+                <h3 class="lcr-box-tit">优品专辑</h3>
+                <a href="#" class="lcr-box-subtit">
+                    发现品质生活
+                    <span class="lcr-box-subtit-arrow"></span>
+                </a>
+            </div>
+            <div class="lcr-box-body">
+                <div class="lcr-tab">
+                    <div class="lcr-page">
+                        <a href="#" class="lcr-page-link">
+                            <p class="lcr-page-dec">顺应人民的名义,人气千元机盘点</p>
+                            <img src="/images/page001.jpg" class="lcr-page-img" />
+                            <img src="/images/page002.jpg" class="lcr-page-img" />
+                            <img src="/images/page003.jpg" class="lcr-page-img" />
+                        </a>
+                        <div class="lcr-page-sep"></div>
+                        <a href="#" class="lcr-page-link">
+                            <p class="lcr-page-dec">游戏党超神利器,炫光机械键盘</p>
+                            <img src="/images/page004.jpg" class="lcr-page-img" />
+                            <img src="/images/page005.jpg" class="lcr-page-img" />
+                            <img src="/images/page006.jpg" class="lcr-page-img" />
+                        </a>
+                    </div>
+                    <div class="lcr-page">
+                        <a href="#" class="lcr-page-link">
+                            <p class="lcr-page-dec">顺应人民的名义,人气千元机盘点</p>
+                            <img src="/images/page001.jpg" class="lcr-page-img" />
+                            <img src="/images/page002.jpg" class="lcr-page-img" />
+                            <img src="/images/page003.jpg" class="lcr-page-img" />
+                        </a>
+                        <div class="lcr-page-sep"></div>
+                        <a href="#" class="lcr-page-link">
+                            <p class="lcr-page-dec">游戏党超神利器,炫光机械键盘</p>
+                            <img src="/images/page004.jpg" class="lcr-page-img" />
+                            <img src="/images/page005.jpg" class="lcr-page-img" />
+                            <img src="/images/page006.jpg" class="lcr-page-img" />
+                        </a>
+                    </div>
+                    <div class="lcr-page">
+                        <a href="#" class="lcr-page-link">
+                            <p class="lcr-page-dec">顺应人民的名义,人气千元机盘点</p>
+                            <img src="/images/page001.jpg" class="lcr-page-img" />
+                            <img src="/images/page002.jpg" class="lcr-page-img" />
+                            <img src="/images/page003.jpg" class="lcr-page-img" />
+                        </a>
+                        <div class="lcr-page-sep"></div>
+                        <a href="#" class="lcr-page-link">
+                            <p class="lcr-page-dec">游戏党超神利器,炫光机械键盘</p>
+                            <img src="/images/page004.jpg" class="lcr-page-img" />
+                            <img src="/images/page005.jpg" class="lcr-page-img" />
+                            <img src="/images/page006.jpg" class="lcr-page-img" />
+                        </a>
+                    </div>
+                </div>
+                <a class="lcr-page-but lcr-page-prebut">
+                    <span class="iconfont"></span>
+                </a>
+                <a class="lcr-page-but lcr-page-nexbut">
+                    <span class="iconfont"></span>
+                </a>
+                <ul class="lcr-page-switch">
+                    <li class="lcr-switch-item"></li>
+                    <li class="lcr-switch-item"></li>
+                    <li class="lcr-switch-item"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="lcr-right">
+            <div class="lcr-box-head">
+                <span class="lcr-box-arrow"></span>
+                <span class="lcr-box-dec"></span>
+                <h3 class="lcr-box-tit">排行榜</h3>
+                <a href="#" class="lcr-box-subtit">
+                    发现品质生活
+                    <span class="lcr-box-subtit-arrow"></span>
+                </a>
+            </div>
+            <div class="lcr-box-body">
+                <div class="lcr-top-head">
+                    <a href="#" class="lcr-top-link lcr-top-firstlink">外设产品</a>
+                    <a href="#" class="lcr-top-link">手机通讯</a>
+                    <a href="#" class="lcr-top-link">电脑配件</a>
+                    <a href="#" class="lcr-top-link">饼干蛋糕</a>
+                    <a href="#" class="lcr-top-link lcr-top-lastlink">耳机/耳麦</a>
+                </div>
+                <div class="lcr-top-content">
+                    <div class="lcr-tc-item">
+                        <ul class="lcr-tci-list">
+                            <li class="lcr-tcil-item lcr-tcil-item1">
+                                <a href="#" class="lcr-tcil-link">
+                                    <div class="lcr-tcil-rank">
+                                        <img src="" class="lcr-tcil-img" />
+                                    </div>
+                                    <div class="lcr-tcil-pic"></div>
+                                    <p class="lcr-tcil-name"></p>
+                                </a>
+                            </li>
+                            <li class="lcr-tcil-item lcr-tcil-item2">
+                                <a href="#" class="lcr-tcil-link">
+                                    <div class="lcr-tcil-rank">
+                                        <img src="" class="lcr-tcil-img" />
+                                    </div>
+                                    <div class="lcr-tcil-pic"></div>
+                                    <p class="lcr-tcil-name"></p>
+                                </a>
+                            </li>
+                            <li class="lcr-tcil-item lcr-tcil-item3">
+                                <a href="#" class="lcr-tcil-link">
+                                    <div class="lcr-tcil-rank">
+                                        <img src="" class="lcr-tcil-img" />
+                                    </div>
+                                    <div class="lcr-tcil-pic"></div>
+                                    <p class="lcr-tcil-name"></p>
+                                </a>
+                            </li>
+                            <li class="lcr-tcil-item lcr-tcil-item4">
+                                <a href="#" class="lcr-tcil-link">
+                                    <div class="lcr-tcil-rank">
+                                        <img src="" class="lcr-tcil-img" />
+                                    </div>
+                                    <div class="lcr-tcil-pic"></div>
+                                    <p class="lcr-tcil-name"></p>
+                                </a>
+                            </li>
+                            <li class="lcr-tcil-item lcr-tcil-item5">
+                                <a href="#" class="lcr-tcil-link">
+                                    <div class="lcr-tcil-rank">
+                                        <img src="" class="lcr-tcil-img" />
+                                    </div>
+                                    <div class="lcr-tcil-pic"></div>
+                                    <p class="lcr-tcil-name"></p>
+                                </a>
+                            </li>
+                            <li class="lcr-tcil-item lcr-tcil-item6">
+                                <a href="#" class="lcr-tcil-link">
+                                    <div class="lcr-tcil-rank">
+                                        <img src="" class="lcr-tcil-img" />
+                                    </div>
+                                    <div class="lcr-tcil-pic"></div>
+                                    <p class="lcr-tcil-name"></p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,431 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<script type="text/javascript">
+
+    $(function () {
+        $('.loginbtn-itself').click(function () {
+            $.ajax({
+                url: '/Users/Logging',
+                data: {
+                    username: $('.username-text').val(),
+                    password: $('.password-text').val()
+                },
+                type: 'post',
+                beforeSend: function () {
+                    $('error-msg').hide();
+                    $('.loginbtn-itself').val('登录中');
+                },
+                success: function (data) {
+                    if (data == 'true')
+                        window.location.href = '/';
+                    else {
+                        $('error-msg').show();
+                        $('.loginbtn-itself').val('登$nbsp;$nbsp;$nbsp;$nbsp;陆');
+                    }
+                }
+            });
+        });
+
+
+    });
+
+</script>
+
+<style type="text/css">
+    *{
+        padding:0;
+        margin:0;
+    }
+    body {
+        background-color:#fff;
+    }
+    a {
+        text-decoration:none;
+        color:#666;
+    }
+    .w{
+        width:990px;
+        margin:0 auto;
+    }
+    .logo{
+        width:300px;
+        margin:10px 0;
+        height:60px;
+        float:left;
+        position:relative;
+    }
+    .logo b{
+        width:110px;
+        height:40px;
+        display:block;
+        position:absolute;
+        right:0;
+        top:10px;
+        background:url("/images/l-icon.png") no-repeat;
+    }
+    #content{
+        clear:both;
+    }
+    .content-inner{
+        height:475px;
+        margin:10px 0 20px;
+        position:relative;
+        z-index:5;
+    }
+    .login{
+        width:990px;
+        margin:0 auto;
+    }
+    .login-form{
+        width:346px;
+        position:relative;
+        z-index:4;
+        float:right;
+        top:40px;
+        background-color:#fff;
+        overflow:visible;
+    }
+    .login-tab{
+        height:54px;
+        width:173px;
+        font-size:18px;
+        font-family:'Microsoft YaHei';
+        text-align:center;
+        border-bottom:1px solid #f4f4f4;
+        position:absolute;
+        background-color:#fff;
+        display:block;
+    }
+    .login-tab a{
+        width:99%;
+        height:18px;
+        position:absolute;
+        left:0;
+        top:18px;
+        line-height:18px;
+        border-right:1px solid #f4f4f4;
+    }
+    .login-tab a.checked, .login-tab a:hover{
+        font-weight:700;
+        color:#e4393c;
+    }
+    .login-tabr a{
+        border-right:0;
+    }
+    .login-tabr{
+        right:0;
+    }
+    .login-box{
+        width:306px;
+        padding:20px;
+    }
+    .msg-wrap{
+        min-height:23px;
+        margin-top:5px;
+        margin-bottom:5px;
+        height:auto;
+    }
+    .error-msg{
+        height:auto;
+        line-height:15px;
+        padding:3px 10px 3px 40px;
+        border:1px solid #faccc6;
+        color:#e4393c;
+        background-color:#ffebeb;
+        position:relative;
+        font-size:14px;
+        display:none;
+    }
+    .error-msg b{
+        height:16px;
+        width:16px;
+        position:absolute;
+        display:block;
+        left:10px;
+        top:50%;
+        margin-top:-8px;
+        overflow:hidden;
+        background:url("/images//pwd-icons-new.png") -104px -49px no-repeat;
+    }
+    .login-item{
+        position:relative;
+        margin-bottom:20px;
+    }
+    .login-username{
+        border:1px solid #bdbdbd;
+    }
+    .login-password{
+        border:1px solid #e4393c;
+    }
+    .username-pic, .password-pic{
+        height:38px;
+        width:38px;
+        position:absolute;
+        top:0;
+        left:0;
+        border-right:1px solid #bdbdbd;
+        background:url("/images/pwd-icons-new.png") no-repeat;
+    }
+    .username-text, .password-text{
+        height:18px;
+        width:254px;
+        line-height:18px;
+        border:0;
+        padding:10px 0 10px 50px;
+        overflow:hidden;
+        font-size:14px;
+        outline:0;
+    }
+    .clear-btn{
+        height:14px;
+        width:14px;
+        position:absolute;
+        z-index:5;
+        right:6px;
+        top:12px;
+        background:url("/images/pwd-icons-new.png") -25px -143px no-repeat;
+        cursor:pointer;
+    }
+    .password-pic{
+        background-position:-48px -96px;
+        border-color:#e4393c;
+    }
+    .forget{
+        text-align:right;
+    }
+    .forget a{
+        font-size:12px;
+        font-family:'Microsoft YaHei';
+    }
+    .loginbtn{
+        margin-bottom:10px;
+    }
+    .loginbtn-self{
+        height:32px;
+        width:99%;
+        border:1px solid #cb2a2d;
+        margin:0 auto;
+    }
+    .loginbtn-itself{
+        height:31px;
+        width:302px;
+        display:block;
+        background-color:#e4393c;
+        line-height:31px;
+        color:#fff;
+        font-size:20px;
+        font-family:'Microsoft YaHei';
+        border:1px solid #e85356;
+        text-align:center;
+    }
+    .qrcode-login{
+        display:none;
+    }
+    .otherway-login{
+        line-height:50px;
+        padding-left:20px;
+        padding-right:20px;
+        border-top:1px solid #f4f4f4;
+        height:auto;
+        background-color:#fcfcfc;
+    }
+    .otherway-login ul::after{
+        clear:both;
+        content:".";
+        visibility:hidden;
+    }
+    .login-form ul{
+        list-style-type:none;
+        display:block;
+    }
+    .login-form li{
+        float:left;
+    }
+    .other-link{
+        display:inline-block;
+        position:relative;
+        padding-left:24px;
+        font-size:12px;
+        font-family:'Microsoft YaHei';
+    }
+    .other-link b{
+        width:19px;
+        height:18px;
+        display:block;
+        position:absolute;
+        background:url("/images/QQ-weixin.png") no-repeat;
+        float:left;
+        left:0;
+        top:16px;
+    }
+    .other-link .weixin-icon{
+        background-position:-20px 0;
+    }
+    .other-sep{
+        padding:0 10px;
+        color:#ccc;
+    }
+    li.extra-li{
+        float:right;
+    }
+    .register a{
+        color:#b61d1d;
+        font-size:14px;
+    }
+    .register b{
+        height:16px;
+        width:16px;
+        display:inline-block;
+        overflow:hidden;
+        margin-right:5px;
+        vertical-align:middle;
+        background:url("/images/pwd-icons-new.png") no-repeat -104px -75px;
+    }
+    .login-banner{
+        position:absolute;
+        width:100%;
+        height:475px;
+        background:#1350b3;
+        top:0;
+        left:0;
+    }
+    .login-banner-inner{
+        width:990px;
+        margin:0 auto;
+    }
+    .login-banner-pic{
+        background:url("/images/5901e97aNa7eb333f.jpg") no-repeat 0 0;
+        background-color:#1350eb;
+        position:relative;
+        height:475px;
+        z-index:3;
+    }
+    .footer{
+        text-align:center;
+        padding-bottom:30px;
+    }
+    .footer-links a{
+        margin:0 10px;
+        font-size:13px;
+    }
+    .copyright{
+        margin:10px 0;
+        font-size:12px;
+        color:#666;
+    }
+</style>
+
+<div class="w">
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo-201305-b.png" width="170" height="60" />
+        </a>
+        <b></b>
+    </div>
+</div>
+<div id="content">
+    <div class="content-inner">
+        <div class="login">
+            <div class="login-form">
+                <div class="login-tab login-tabl">
+                    <a href="#" style="outline:rgb(109,109,109) none 0px">扫码登陆</a>
+                </div>
+                <div class="login-tab login-tabr">
+                    <a href="#" class="checked">账户登陆</a>
+                </div>
+                <div class="login-box">
+                    <div style="height:35px"></div>
+                    <div class="msg-wrap">
+                        <div class="error-msg">
+                            <b></b>
+                            账号密码不匹配,请重新输入 
+                        </div>
+                    </div>
+                    <div class="login-box-inner">
+                        <div class="login-box-form">
+                            <form id="formlogin" method="post" onsubmit="login()">
+                                <div class="login-username login-item">
+                                    <b class="username-pic"></b>
+                                    <input type="text" class="username-text" placeholder="邮箱/用户名/已验证手机" />
+                                    <b class="clear-btn"></b>
+                                </div>
+                                <div class="login-password login-item">
+                                    <b class="password-pic"></b>
+                                    <input type="text" class="password-text" placeholder="密码" />
+                                    <b class="clear-btn"></b>
+                                </div>
+                                <div class="login-item forget">
+                                    <a href="#">忘记密码</a>
+                                </div>
+                                <div class="login-item loginbtn">
+                                    <div class="loginbtn-self">
+                                        <a href="javascript:;" class="loginbtn-itself">登&nbsp;&nbsp;&nbsp;&nbsp;陆</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="qrcode-login">
+
+                </div>
+                <div class="otherway-login">
+                    <ul>
+                        <li>
+                            <a href="#" class="other-link">
+                                <b class="qq-icon"></b>
+                                QQ
+                            </a>
+                            <span class="other-sep">|</span>
+                        </li>
+                        <li>
+                            <a href="#" class="other-link">
+                                <b class="weixin-icon"></b>
+                                微信
+                            </a>
+                        </li>
+                        <li class="extra-li">
+                            <div>
+                                <div class="register">
+                                    <a href="#">
+                                        <b></b>
+                                        立即注册
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="login-banner">
+            <div class="login-banner-inner">
+                <div class="login-banner-pic"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w">
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">联系我们</a>
+            <a href="#">人才招聘</a>
+            <a href="#">商家入驻</a>
+            <a href="#">广告服务</a>
+            <a href="#">手机京东</a>
+            <a href="#">友情链接</a>
+            <a href="#">销售联盟</a>
+            <a href="#">京东社区</a>
+            <a href="#">京东公益</a>
+            <a href="#">English Site</a>
+        </div>
+        <div class="copyright">
+            Copyright&nbsp;©&nbsp;2004-2017&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+        </div>
+    </div>
+</div>
+
