@@ -8,7 +8,7 @@
     $(function () {
         $('.loginbtn-itself').click(function () {
             $.ajax({
-                url: '/Users/Logging',
+                url: '/Users/Login',
                 data: {
                     username: $('.username-text').val(),
                     password: $('.password-text').val()
@@ -22,7 +22,7 @@
                     if (data == 'true')
                         window.location.href = '/';
                     else {
-                        $('error-msg').show();
+                        $('.error-msg').show();
                         $('.loginbtn-itself').val('登$nbsp;$nbsp;$nbsp;$nbsp;陆');
                     }
                 }

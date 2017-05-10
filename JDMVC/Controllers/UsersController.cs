@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using JDMVC.Models;
 
 namespace JDMVC.Controllers
 {
@@ -13,9 +14,30 @@ namespace JDMVC.Controllers
         {
             return View();
         }
-        public ActionResult Logging(String username, String paswword)
+        Models.User u;
+        JDEntities jd;
+        [HttpPost]
+        public ActionResult Login(String username, String password)
         {
-            return Content("true");
+            jd = new JDEntities();
+            u = new Models.User();
+            var data = from t in jd.Users
+                       where t.username == username
+                       where t.password == password
+                       select t;
+            if (data.Count() > 0)
+            {
+                u = (User)data.Single();
+                Session["users"] = u;
+                return Content("true");
+            }
+            else
+                return Content("false");
+        }
+        public ActionResult SignOut()
+        {
+            Session["users"] = null;
+            return RedirectToAction("Login", "Users");
         }
     }
 }

@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\001.jpg" />
@@ -112,6 +113,8 @@
     <Content Include="images\icon1.png" />
     <Content Include="images\icon2.png" />
     <Content Include="images\icon3.png" />
+    <Content Include="images\ico_footer.png" />
+    <Content Include="images\ico_service.png" />
     <Content Include="images\k001.jpg" />
     <Content Include="images\k002.jpg" />
     <Content Include="images\k003.jpg" />
@@ -130,6 +133,7 @@
     <Content Include="images\mainad.png" />
     <Content Include="images\mainadleft.png" />
     <Content Include="images\mainadright.png" />
+    <Content Include="images\no_login.jpg" />
     <Content Include="images\page001.jpg" />
     <Content Include="images\page002.jpg" />
     <Content Include="images\page003.jpg" />
@@ -138,9 +142,13 @@
     <Content Include="images\page006.jpg" />
     <Content Include="images\pwd-icons-new.png" />
     <Content Include="images\QQ-weixin.png" />
+    <Content Include="images\rankfood001.png" />
     <Content Include="images\rightgoods.jpg" />
     <Content Include="images\seckill_hd.png" />
     <Content Include="images\special.jpg" />
+    <Content Include="images\sprite_fs%401x.png" />
+    <Content Include="images\sprite_index%401x.png" />
+    <Content Include="images\sprite_userinfo%401x.png" />
     <Content Include="Models\Productmodel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Productmodel.Context.cs</LastGenOutput>
@@ -168,6 +176,7 @@
     <Content Include="images\lcr004.webp" />
     <Content Include="images\lcr005.webp" />
     <Content Include="images\lcr006.webp" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -175,6 +184,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -202,7 +218,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Productmodel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Productmodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLevels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +248,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

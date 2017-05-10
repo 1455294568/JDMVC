@@ -29,6 +29,8 @@
              if (timer == null)
                  slider();
          });
+
+         /*
          $('.cate-menu-item').hover(function () {
              $(this).addClass('cate-menu-item-on');
              $('.cate-menu-pop').show();
@@ -38,6 +40,19 @@
                  $('.cate-menu-pop').hide();
              }
          );
+         */
+
+         $('.cate-menu-item').mouseenter(function () {
+             $(this).addClass('cate-menu-item-on').siblings().removeClass('cate-menu-item-on');
+             $('.cate-menu-pop').show();
+         });
+
+         $('.cate-menu').mouseleave(function () {
+             $('.cate-menu-item').removeClass('cate-menu-item-on');
+             $('.cate-menu-pop').hide();
+         });
+
+
          $('.menu-item-link').hover(function () {
              $(this).css('color', '#f10215');
          }, function () {
@@ -114,8 +129,19 @@
              setTimeout(function () {
                  $('.search-helper').hide();
              }, 300);
-             
          });
+
+
+         //用户信息栏动画
+         $('.userinfo-tab-item').mouseenter(function () {
+             var index = $(this).index();
+             if (index == 0)
+                 $('.userinfo-news-active').css('transform', 'translateX(0px)');
+             else
+                 $('.userinfo-news-active').css('transform', 'translateX(50px)');
+             $('.userinfo-content-item').eq(index).show().siblings().hide();
+         });
+
     });
 
 
@@ -402,7 +428,7 @@
     .main-hot-adlink {
         display: block;
         height: 480px;
-        background: url("/images/mainadleft.png") no-repeat -13px -2px ,url("/images/mainadright.png") no-repeat 1553px -2px;
+        background:url("/images/mainad.png") 50% -2px no-repeat;
     }
         .category{
             width:190px;
@@ -454,6 +480,202 @@
             margin-left:10px;
             float:right;
             background-color:#fff;
+        }
+        .userinfo-inner{
+            padding:0 15px;
+            height:115px;
+            border-bottom:1px solid #e6e6e6;
+        }
+        .userinfo-level{
+            overflow:hidden;
+            height:45px;
+            padding:15px 0 15px 58px;
+            position:relative;
+        }
+        .userinfo-icon{
+            overflow:hidden;
+            height:50px;
+            width:50px;
+            margin-left:-58px;
+            position:absolute;
+        }
+        .userinfo-icon .userinfo-img{
+            display:block;
+            height:40px;
+            margin:5px;
+            border-radius:45px;
+        }
+        .userinfo-icon .userinfo-link{
+            background-image:url("/images/sprite_userinfo@1x.png");
+            background-position:-70px 0;
+            background-size:156px 123px;
+            background-repeat:no-repeat;
+            display:block;
+            width:50px;
+            height:50px;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        .userinfo-show p{
+            font-size:12px;
+            margin-top:2px;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+        }
+        .userinfo-profit{
+            overflow:hidden;
+            height:24px;
+            margin-right:-10px;
+        }
+        .userinfo-profit-link{
+            display:inline-block;
+            height:20px;
+            width:70px;
+            margin-right:10px;
+            border:2px solid #e01222;
+            line-height:20px;
+            font-size:12px;
+            text-align:center;
+            color:#e01222;
+        }
+        .userinfo-news{
+            height:154px;
+            padding:0 15px;
+            overflow:hidden;
+        }
+        .userinfo-tab-head{
+            padding:8px 0 4px;
+            border-bottom:1px solid #e6e6e6;
+            position:relative;
+            line-height:14px;
+        }
+        .userinfo-tab-item{
+            color:#333;
+            border-right:1px solid #dfe0e1;
+            padding-left:12px;
+            padding-right:12px;
+            font-size:12px;
+        }
+        .userinfo-news-active{
+            position:absolute;
+            bottom:-1px;
+            left:-2px;
+            width:28px;
+            height:2px;
+            background:#db192b;
+            -webkit-transition: -webkit-transform .3s ease;
+            transition: -webkit-transform .3s ease;
+            transition: transform .3s ease; 
+            transition: transform .3s ease,-webkit-transform .3s ease;
+        }
+        .userinfo-item-first{
+            padding-left:0;
+        }
+        .userinfo-item-last{
+            padding-right:0;
+            border-right:0;
+        }
+        .news-more{
+            position:absolute;
+            right:0;
+            top:8px;
+            font-size:12px;
+        }
+        .userinfo-tab-content{
+            padding:12px 0;
+        }
+        .content-newsitem{
+            line-height:24px;
+            width:160px;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+            overflow:hidden;
+        }
+        .content-newsitem .news_link{
+            font-size:12px;
+        }
+        .userinfo-service{
+            overflow:hidden;
+            position:relative;
+            height:210px;
+        }
+        .service-entry{
+            overflow:hidden;
+            width:190px;
+        }
+        .service-list{
+            margin-left:-1px;
+            width:192px;
+            height:210px;
+            overflow:hidden;
+        }
+        .service-item{
+            position:relative;
+            overflow:hidden;
+            height:69px;
+            width:47px;
+            float:left;
+            border-top:1px solid #e7e7e7;
+            border-left:1px solid #e7e7e7;
+            text-align:center;
+        }
+        .service-link{
+            display:block;
+            padding-top:14px;
+            height:55px;
+        }
+        .service-icon {
+            height: 24px;
+            width: 24px;
+            background-image: url("/images/sprite_fs@1x.png");
+            background-size: 156px 148px;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            display: block;
+        }
+        .service-huafei{
+            background-position:0 -88px;
+        }
+        .service-jipiao{
+            background-position:0 -44px;
+        }
+        .service-jiudian{
+            background-position:-44px -88px;
+        }
+        .service-youxi{
+            background-position:-88px 0;
+        }
+        .service-qiyegou{
+            background-position:-88px -44px;
+        }
+        .service-jiayouka{
+            background-position:0 0;
+        }
+        .service-dianyingpiao{
+            background-position:-44px -44px;
+        }
+        .service-huochepiao{
+            background-position:-88px -88px;
+        }
+        .service-zongchou{
+            background-position:-132px 0;
+        }
+        .service-licai{
+            background-position:-132px -44px;
+        }
+        .service-lipingka{
+            background-position:-132px -88px;
+        }
+        .service-baitiao{
+            background-position:-44px 0;
+        }
+        .service-txt{
+            height:22px;
+            line-height:22px;
+            border-top:2px solid #fff;
+            display:block;
+            font-size:12px;
         }
         #sale-ms{
             height:305px;
@@ -949,6 +1171,221 @@
         .lcr-top-link:hover{
             color:#c81623;
         }
+        .lcr-top-content{
+            padding:10px;
+        }
+        .lcr-tc-item{
+            height:335px;
+            overflow:hidden;
+        }
+        .lcr-tci-list{
+            height:100%;
+        }
+        .lcr-tcil-item{
+            position:relative;
+            float:left;
+            width:123px;
+            text-align:center;
+        }
+        .lcr-tcil-link{
+            display:block;
+            padding:12px 0;
+            border-right:1px solid #e7e7e7;
+            border-bottom:1px solid #e7e7e7;
+        }
+        .lcr-tcil-pic{
+            margin-bottom:10px;
+        }
+        .lcr-tcil-rank{
+            background-image:url(/images/sprite_index@1x.png);
+            background-size:218px 188px;
+            background-repeat:no-repeat;
+            background-position:-100px -100px;
+            width:30px;
+            height:40px;
+            position:absolute;
+            top:12px;
+            left:11px;
+            color:#fff;
+            line-height:35px;
+            text-align:center;
+            font-size:22px;
+        }
+        .lcr-tcil-rank1{
+            background-position:-104px -40px;
+        }
+        .lcr-tcil-rank2{
+            background-position:-50px -100px;
+        }
+        .lcr-tcil-rank3{
+            background-position:0 -100px;
+        }
+        .lcr-tcil-img{
+            height:100px;
+        }
+        .lcr-tcil-name{
+            height:32px;
+            text-align:left;
+            padding:0 11px;
+            line-height:16px;
+            overflow:hidden;
+            word-wrap:break-word;
+            word-break:break-all;
+            font-size:12px;
+        }
+        #footer{
+            height:500px;
+            background-color:#eaeaea;
+        }
+        .mod-service{
+            padding:30px 0;
+            border-bottom:1px solid #dedede;
+        }
+        .mod-service-inner, .mod-help-inner, .mod-copyright-inner{
+            width:1200px;
+            margin:0 auto;
+        }
+        .mod-service-list{
+            height:42px;
+            overflow:hidden;
+        }
+        .mod-service-item{
+            float:left;
+            width:297px;
+        }
+        .mod-service-unit{
+            position:relative;
+            margin:0 auto;
+            padding-left:45px;
+            width:180px;
+        }
+        .mod-service-tit{
+            overflow:hidden;
+            position:absolute;
+            left:0;
+            top:0;
+            width:36px;
+            height:42px;
+            background-image:url(/images/ico_service.png);
+            text-indent:-999px;
+        }
+        .mod-service-duo{
+            background-position:0 0 ;
+        }
+        .mod-service-kuai{
+            background-position:0 -43px;
+        }
+        .mod-service-hao{
+            background-position:0 -86px;
+        }
+        .mod-service-sheng{
+            background-position:0 -129px;
+        }
+        .mod-service-txt{
+            overflow: hidden;
+            width:100%;
+            height:42px;
+            line-height:42px;
+            font-size:18px;
+            font-weight:700;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            color:#444;
+        }
+        .mod-help{
+            padding:20px 0;
+        }
+        .mod-help-list{
+            overflow:hidden;
+            height:160px;
+        }
+        .mod-help-nav{
+            float:left;
+            width:198px;
+            line-height:22px;
+        }
+        .mod-help-cover{
+            float:right;
+            width:200px;
+            height:150px;
+            background:url("/images/ico_footer.png") 0 0 no-repeat;
+        }
+        .mod-help-nav-tit, .mod-help-cover-tit{
+            margin-bottom:5px;
+            font-size:14px;
+            color:#666;
+        }
+        .mod-help-nav-con a{
+            font-size:12px;
+        }
+        .mod-help-cover-tit{
+            font-size:14px;
+            margin-bottom:15px;
+            text-align:center;
+        }
+        .mod-help-cover-more{
+            text-align:right;
+        }
+        .mod-help-cover-info, .mod-help-cover-con a{
+            font-size:12px;
+        }
+        .mod-help-cover-con{
+            padding:0 10px;
+        }
+        .mod-copyright-inner{
+            text-align:center;
+            padding:15px 0;
+        }
+        .mod-copyright-links{
+            display:block;
+        }
+        .mod-copyright-links a{
+            font-size:12px;
+            line-height:21px;
+        }
+        .mod-copyright-split{
+            margin:0 6px;
+            color:#ccc;
+            font-size:12px;
+        }
+        .mod-copyright-info{
+            padding:10px 0;
+            line-height:22px;
+            color:#999;
+        }
+        .mod-copyright-info a{
+            font-size:12px;
+            text-align:center;
+            color:#999;
+        }
+        .mod-copyright-auth-ico{
+            overflow:hidden;
+            display:inline-block;
+            margin:0 3px;
+            width:103px;
+            height:32px;
+            background-image:url("/images/ico_footer.png ");
+            line-height:1000px;
+            font-size:12px;
+        }
+        .mod-copyright-auth-ico1{
+            background-position:0 -151px;
+        }
+        .mod-copyright-auth-ico2{
+            background-position:-104px -151px;
+        }
+        .mod-copyright-auth-ico3{
+            background-position:0 -184px;
+        }
+        .mod-copyright-auth-ico4{
+            background-position:-104px -184px
+        }
+        .mod-copyright-auth-ico5{
+            background-position:0 -217px;
+        }
+        .mod-copyright-auth-ico6{
+            background-position:-104px -217px;
+        }
 </style>
 
 <div id="Ad">
@@ -961,8 +1398,8 @@
     <div class="topmid">
         <div class="dropdown">@ViewData["Location"]</div>
         <ul class="info">
-            <li><a href="/Users/Login">登陆</a></li>
-            <li><a href="#">免费注册</a></li>
+            <li><a href="@ViewBag.loginlink">@ViewBag.toplogin</a></li>
+            <li><a href="@ViewBag.reglink">@ViewBag.topreg</a></li>
             <li><a href="#">我的订单</a></li>
             <li><a href="#">我的京东</a></li>
             <li><a href="#">京东会员</a></li>
@@ -1209,7 +1646,150 @@
             </div>
         </div>
         <div class="userinfo">
-
+            <div class="userinfo-inner">
+                <div class="userinfo-level">
+                    <div class="userinfo-icon">
+                        <img class="userinfo-img" src="~/images/no_login.jpg" />
+                        <a href="#" class="userinfo-link" target="_blank"></a>
+                    </div>
+                    <div class="userinfo-show">
+                        <p>
+                            Hi , 
+                            <a href="@ViewBag.usernamelink">@ViewBag.username</a>
+                        </p>
+                        <p>
+                            <a href="@ViewBag.loginlink">@ViewBag.login</a>
+                            <a href=@ViewBag.reglink>@ViewBag.reg</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="userinfo-profit">
+                    <a href="#" target="_blank" class="userinfo-profit-link">新人福利</a>
+                    <a href="#" target="_blank" class="userinfo-profit-link">PLUS会员</a>
+                </div>
+            </div>
+            <div class="userinfo-news">
+                <div class="userinfo-tab">
+                    <div class="userinfo-tab-head">
+                        <a href="#" class="userinfo-tab-item userinfo-item-first">促销</a>
+                        <a href="#" class="userinfo-tab-item userinfo-item-last">公告</a>
+                        <div class="userinfo-news-active"></div>
+                        <a href="#" class="news-more" target="_blank">更多</a>
+                    </div>
+                    <div class="userinfo-tab-content">
+                        <div class="userinfo-content-item">
+                            <ul class="userinfo-newslist">
+                                <li class="content-newsitem">
+                                    <a href="https://sale.jd.com/act/ECMXKq8Yo25GNt.html" target="_blank" class="news_link">美赞臣奶粉一元秒，礼赞母爱</a>
+                                </li>
+                                <li class="content-newsitem">
+                                    <a href="https://sale.jd.com/act/SK6Cr8VxMUkoGeQ.html" target="_blank" class="news_link">京东红酒节满399减100</a>
+                                </li>
+                                <li class="content-newsitem">
+                                    <a href="https://sale.jd.com/act/AqGMoP7FnZCid1.html" target="_blank" class="news_link">京东健康母亲节全场低至5折</a>
+                                </li>
+                                <li class="content-newsitem">
+                                    <a href="https://sale.jd.com/act/FCJtoPsHRghaN5G.html" target="_blank" class="news_link">小电低至2件199，白条满立减</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="userinfo-content-item" style="display:none;">
+                            <ul class="userinfo-newslist">
+                                <li class="content-newsitem">
+                                    <a href="//www.jd.com/news.aspx?id=33867" target="_blank" class="news_link">北京地区因交通管制配送延迟</a>
+                                </li>
+                                <li class="content-newsitem">
+                                    <a href="//www.jd.com/news.aspx?id=33773" target="_blank" class="news_link"> “4.28配送员日”2000名五星一线员工获表彰</a>
+                                </li>
+                                <li class="content-newsitem">
+                                    <a href="//www.jd.com/news.aspx?id=33743" target="_blank" class="news_link">京东热水器品类安装收费封顶</a>
+                                </li>
+                                <li class="content-newsitem">
+                                    <a href="//www.jd.com/news.aspx?id=33549" target="_blank" class="news_link">英国超市ASDA入驻京东</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="userinfo-service">
+                <div class="service-entry">
+                    <ul class="service-list">
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-huafei"></span>
+                                <span class="service-txt">话费</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-jipiao"></span>
+                                <span class="service-txt">机票</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-jiudian"></span>
+                                <span class="service-txt">酒店</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-youxi"></span>
+                                <span class="service-txt">游戏</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-qiyegou"></span>
+                                <span class="service-txt">企业购</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-jiayouka"></span>
+                                <span class="service-txt">加油卡</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-dianyingpiao"></span>
+                                <span class="service-txt">电影票</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-huochepiao"></span>
+                                <span class="service-txt">火车票</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-zongchou"></span>
+                                <span class="service-txt">众筹</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-licai"></span>
+                                <span class="service-txt">理财</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-lipingka"></span>
+                                <span class="service-txt">礼品卡</span>
+                            </a>
+                        </li>
+                        <li class="service-item">
+                            <a href="#" class="service-link">
+                                <span class="service-icon service-baitiao"></span>
+                                <span class="service-txt">白条</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div class="main-hot-ad">
@@ -1599,56 +2179,56 @@
                         <ul class="lcr-tci-list">
                             <li class="lcr-tcil-item lcr-tcil-item1">
                                 <a href="#" class="lcr-tcil-link">
-                                    <div class="lcr-tcil-rank">
-                                        <img src="" class="lcr-tcil-img" />
+                                    <div class="lcr-tcil-rank lcr-tcil-rank1">1</div>
+                                    <div class="lcr-tcil-pic">
+                                        <img src="~/images/rankfood001.png" class="lcr-tcil-img" />
                                     </div>
-                                    <div class="lcr-tcil-pic"></div>
-                                    <p class="lcr-tcil-name"></p>
+                                    <p class="lcr-tcil-name">良品铺子肉松饼传统糕点 办公室零食小吃 休闲早餐食品380g/袋</p>
                                 </a>
                             </li>
                             <li class="lcr-tcil-item lcr-tcil-item2">
                                 <a href="#" class="lcr-tcil-link">
-                                    <div class="lcr-tcil-rank">
-                                        <img src="" class="lcr-tcil-img" />
+                                    <div class="lcr-tcil-rank lcr-tcil-rank2">2</div>
+                                    <div class="lcr-tcil-pic">
+                                        <img src="~/images/rankfood001.png" class="lcr-tcil-img" />
                                     </div>
-                                    <div class="lcr-tcil-pic"></div>
-                                    <p class="lcr-tcil-name"></p>
+                                    <p class="lcr-tcil-name">良品铺子肉松饼传统糕点 办公室零食小吃 休闲早餐食品380g/袋</p>
                                 </a>
                             </li>
                             <li class="lcr-tcil-item lcr-tcil-item3">
                                 <a href="#" class="lcr-tcil-link">
-                                    <div class="lcr-tcil-rank">
-                                        <img src="" class="lcr-tcil-img" />
+                                    <div class="lcr-tcil-rank lcr-tcil-rank3">3</div>
+                                    <div class="lcr-tcil-pic">
+                                        <img src="~/images/rankfood001.png" class="lcr-tcil-img" />
                                     </div>
-                                    <div class="lcr-tcil-pic"></div>
-                                    <p class="lcr-tcil-name"></p>
+                                    <p class="lcr-tcil-name">良品铺子肉松饼传统糕点 办公室零食小吃 休闲早餐食品380g/袋</p>
                                 </a>
                             </li>
                             <li class="lcr-tcil-item lcr-tcil-item4">
                                 <a href="#" class="lcr-tcil-link">
-                                    <div class="lcr-tcil-rank">
-                                        <img src="" class="lcr-tcil-img" />
+                                    <div class="lcr-tcil-rank lcr-tcil-rank4">4</div>
+                                    <div class="lcr-tcil-pic">
+                                        <img src="~/images/rankfood001.png" class="lcr-tcil-img" />
                                     </div>
-                                    <div class="lcr-tcil-pic"></div>
-                                    <p class="lcr-tcil-name"></p>
+                                    <p class="lcr-tcil-name">良品铺子肉松饼传统糕点 办公室零食小吃 休闲早餐食品380g/袋</p>
                                 </a>
                             </li>
                             <li class="lcr-tcil-item lcr-tcil-item5">
                                 <a href="#" class="lcr-tcil-link">
-                                    <div class="lcr-tcil-rank">
-                                        <img src="" class="lcr-tcil-img" />
+                                    <div class="lcr-tcil-rank lcr-tcil-rank5">5</div>
+                                    <div class="lcr-tcil-pic">
+                                        <img src="~/images/rankfood001.png" class="lcr-tcil-img" />
                                     </div>
-                                    <div class="lcr-tcil-pic"></div>
-                                    <p class="lcr-tcil-name"></p>
+                                    <p class="lcr-tcil-name">良品铺子肉松饼传统糕点 办公室零食小吃 休闲早餐食品380g/袋</p>
                                 </a>
                             </li>
                             <li class="lcr-tcil-item lcr-tcil-item6">
                                 <a href="#" class="lcr-tcil-link">
-                                    <div class="lcr-tcil-rank">
-                                        <img src="" class="lcr-tcil-img" />
+                                    <div class="lcr-tcil-rank lcr-tcil-rank6">6</div>
+                                    <div class="lcr-tcil-pic">
+                                        <img src="~/images/rankfood001.png" class="lcr-tcil-img" />
                                     </div>
-                                    <div class="lcr-tcil-pic"></div>
-                                    <p class="lcr-tcil-name"></p>
+                                    <p class="lcr-tcil-name">良品铺子肉松饼传统糕点 办公室零食小吃 休闲早餐食品380g/袋</p>
                                 </a>
                             </li>
                         </ul>
@@ -1658,4 +2238,236 @@
         </div>
     </div>
 </div>
-
+<div id="footer">
+    <div class="mod-service">
+        <div class="mod-service-inner">
+            <ul class="mod-service-list">
+                <li class="mod-service-item">
+                    <div class="mod-service-unit">
+                        <h5 class="mod-service-tit mod-service-duo">多</h5>
+                        <p class="mod-service-txt">品类齐全,轻松购物</p>
+                    </div>
+                </li>
+                <li class="mod-service-item">
+                    <div class="mod-service-unit">
+                        <h5 class="mod-service-tit mod-service-kuai">快</h5>
+                        <p class="mod-service-txt">多仓直发,极速配送</p>
+                    </div>
+                </li>
+                <li class="mod-service-item">
+                    <div class="mod-service-unit">
+                        <h5 class="mod-service-tit mod-service-hao">好</h5>
+                        <p class="mod-service-txt">正品行货,精致服务</p>
+                    </div>
+                </li>
+                <li class="mod-service-item">
+                    <div class="mod-service-unit">
+                        <h5 class="mod-service-tit mod-service-sheng">省</h5>
+                        <p class="mod-service-txt">天天低价,畅选无忧</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mod-help">
+        <div class="mod-help-inner">
+            <div class="mod-help-list">
+                <div class="mod-help-nav">
+                    <h5 class="mod-help-nav-tit">购物指南</h5>
+                    <ul class="mod-help-nav-con">
+                        <li>
+                            <a href="#" target="_blank">购物流程</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">会员介绍</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">生活旅行</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">常见问题</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">大家电</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">联系客服</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mod-help-nav">
+                    <h5 class="mod-help-nav-tit">配送方式</h5>
+                    <ul class="mod-help-nav-con">
+                        <li>
+                            <a href="#" target="_blank">上门自提</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">211限时达</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">配送服务查询</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">配送费收取标准</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">海外配送</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mod-help-nav">
+                    <h5 class="mod-help-nav-tit">支付方式</h5>
+                    <ul class="mod-help-nav-con">
+                        <li>
+                            <a href="#" target="_blank">货到付款</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">在线支付</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">分期付款</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">邮局汇款</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">公司转账</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mod-help-nav">
+                    <h5 class="mod-help-nav-tit">售后服务</h5>
+                    <ul class="mod-help-nav-con">
+                        <li>
+                            <a href="#" target="_blank">售后政策</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">价格保护</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">退款说明</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">返修/退换货</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">取消订单</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mod-help-nav">
+                    <h5 class="mod-help-nav-tit">特色服务</h5>
+                    <ul class="mod-help-nav-con">
+                        <li>
+                            <a href="#" target="_blank">夺宝岛</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">DIY装机</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">延保服务</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">京东E卡</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">京东通信</a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">京东JD+</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mod-help-cover">
+                    <h5 class="mod-help-cover-tit">京东自营覆盖区县</h5>
+                    <div class="mod-help-cover-con">
+                        <p class="mod-help-cover-info">京东已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+                        <p class="mod-help-cover-more">
+                            <a href="#" target="_blank">
+                                查看详情
+                                <span class="iconfont"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mod-copyright">
+        <div class="mod-copyright-inner">
+            <p class="mod-copyright-links">
+                <a href="#" target="_blank">关于我们</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">联系我们</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">联系客服</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">合作招商</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">商家帮助</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">营销中心</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">手机京东</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">友情链接</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">销售联盟</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">京东社区</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">风险监测</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">隐私政策</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">京东公益</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">English Site</a>
+                <span class="mod-copyright-split">|</span>
+                <a href="#" target="_blank">Contact Us</a>
+            </p>
+            <div class="mod-copyright-info">
+                <p>
+                    <a href="#" target="_blank">京公网安备 11000002000088号</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">京ICP证070359号</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a>新出发京零 字第大120007号</a>
+                </p>
+                <p>
+                    <a>互联网出版许可证编号新出网证(京)字150号</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">出版物经营许可证</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a>违法和不良信息举报电话：4006561155</a>
+                </p>
+                <p>
+                    <a>Copyright © 2004 - 2017  京东JD.com 版权所有</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a>消费者维权热线：4006067733</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">经营执照</a>
+                </p>
+                <p>
+                    <a>京东旗下网站 : </a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">京东钱包</a>
+                    <span class="mod-copyright-split">|</span>
+                    <a href="#" target="_blank">京东云</a>
+                </p>
+            </div>
+            <p class="mod-copyright-auth">
+                <a class="mod-copyright-auth-ico mod-copyright-auth-ico1" href="#" target="_blank">经营性网站备案中心</a>
+                <a class="mod-copyright-auth-ico mod-copyright-auth-ico2" href="#" target="_blank">可信网站信用评估</a>
+                <a class="mod-copyright-auth-ico mod-copyright-auth-ico3" href="#" target="_blank">网络警察提醒你</a>
+                <a class="mod-copyright-auth-ico mod-copyright-auth-ico4" href="#" target="_blank">诚信网站</a>
+                <a class="mod-copyright-auth-ico mod-copyright-auth-ico5" href="#" target="_blank">中国互联网举报中心</a>
+                <a class="mod-copyright-auth-ico mod-copyright-auth-ico6" href="#" target="_blank">网络举报APP下载</a>
+            </p>
+        </div>
+    </div>
+</div>
